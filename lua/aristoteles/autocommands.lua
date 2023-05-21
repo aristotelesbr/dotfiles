@@ -25,6 +25,12 @@ vim.api.nvim_create_autocmd("FileType", {
   command = "set nobuflisted"
 })
 
+vim.api.nvim_create_autocmd({"CursorHold", "CursorHoldI"},{
+  group = general_settings_group,
+  pattern = "*",
+  command = "lua vim.diagnostic.open_float(nil, {focus=false})"
+})
+
 -- _git
 local git_group = vim.api.nvim_create_augroup("_git", { clear = true })
 
@@ -80,4 +86,5 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
   pattern = "*",
   command = "Copilot suggestion",
 })
--- })
+
+

@@ -14,7 +14,7 @@ local conditional = function(fn)
 end
 
 null_ls.setup({
-	debug = true,
+	debug = false,
 	sources = {
 		formatting.prettier.with({ extra_args = { "--no-semi", "--single-quote", "--jsx-single-quote" } }),
 		diagnostics.eslint_d.with({
