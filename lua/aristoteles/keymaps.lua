@@ -22,9 +22,6 @@ vim.g.maplocalleader = ","
 -- Reload configs
 keymap("n", "<Leader>rr", ":luafile %<CR>", opts)
 
--- Auto format
-keymap("n", "<Leader>;", ":lua vim.lsp.buf.format({ timeout_ms = 3000 })<CR>", opts)
-
 -- Better window navigation
 keymap("n", "<C-h>", "<C-w>h", opts)
 keymap("n", "<C-j>", "<C-w>j", opts)
@@ -44,6 +41,10 @@ keymap("n", "<S-h>", ":bprevious<CR>", opts)
 -- Move text up and down
 keymap("n", "<A-j>", "<Esc>:m .+1<CR>==gi", opts)
 keymap("n", "<A-k>", "<Esc>:m .-2<CR>==gi", opts)
+
+-- Move to start and end of line
+keymap("n", "<A-h>", "^", opts)
+keymap("n", "<A-l>", "$", opts)
 
 -- Insert --
 -- Press jk fast to exit insert mode 
