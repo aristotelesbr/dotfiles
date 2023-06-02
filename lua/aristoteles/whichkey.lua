@@ -70,6 +70,7 @@ local setup = {
 }
 
 local opts = {
+  theme = "ayu_light",
   mode = "n", -- NORMAL mode
   prefix = "<leader>",
   buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings

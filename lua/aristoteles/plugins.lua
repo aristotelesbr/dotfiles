@@ -58,6 +58,7 @@ return packer.startup(function(use)
 	use({ "folke/which-key.nvim" })
 
 	-- Colorschemes
+  use({ "tpope/vim-vividchalk" })
 	use({ "folke/tokyonight.nvim", commit = "66bfc2e8f754869c7b651f3f47a2ee56ae557764" })
 	use({ "lunarvim/darkplus.nvim", commit = "13ef9daad28d3cf6c5e793acfc16ddbf456e1c83" })
 

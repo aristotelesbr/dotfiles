@@ -37,6 +37,7 @@ local options = {
   guifont = "monospace:h17",               -- the font used in graphical neovim applications
   whichwrap = "bs<>[]hl",                  -- which "horizontal" keys are allowed to travel to prev/next line
   colorcolumn = "80",                      -- fix for indentline
+  background = "dark",                     -- tell vim what the background color looks like 
 }
 
 for k, v in pairs(options) do
