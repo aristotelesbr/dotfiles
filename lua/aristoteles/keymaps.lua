@@ -19,6 +19,12 @@ vim.g.maplocalleader = ","
 --   command_mode = "c",
 
 -- Normal --
+-- Open floating diagnostics
+keymap("n", "<Leader>of", ":lua vim.diagnostic.open_float(nil, {focus=false})<CR>", opts)
+
+-- Open telescope
+keymap("n", "<C-p>", ":lua require('telescope.builtin').find_files()<CR>", opts)
+
 -- Reload configs
 keymap("n", "<Leader>rr", ":luafile %<CR>", opts)
 
