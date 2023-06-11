@@ -19,6 +19,9 @@ vim.g.maplocalleader = ","
 --   command_mode = "c",
 
 -- Normal --
+-- Delete line without yanking
+keymap("n", "<Leader>dd", "\"_dd", opts)
+
 -- Open floating diagnostics
 keymap("n", "<Leader>of", ":lua vim.diagnostic.open_float(nil, {focus=false})<CR>", opts)
 
