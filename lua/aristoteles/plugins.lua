@@ -109,8 +109,8 @@ return packer.startup(function(use)
 
   -- Crystal syntax highlighting
   use({"jlcrochet/vim-crystal"})
-  
-	-- Automatically set up your configuration after cloning packer.nvim
+	
+  -- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins
 	if PACKER_BOOTSTRAP then
 		require("packer").sync()
