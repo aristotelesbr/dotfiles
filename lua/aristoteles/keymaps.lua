@@ -19,6 +19,9 @@ vim.g.maplocalleader = ","
 --   command_mode = "c",
 
 -- Normal --
+-- Sniprun
+keymap('n', ',,', ':SnipRun<CR>', opts)
+
 -- Delete line without yanking
 keymap("n", "<Leader>dd", "\"_dd", opts)
 

@@ -107,11 +107,14 @@ return packer.startup(function(use)
     end,
   })
 
-  -- Crystal syntax highlighting
+  -- Crystal syntax highlighting 
   use({"jlcrochet/vim-crystal"})
 
   -- Presentations
   use({'Chaitanyabsprip/present.nvim'})
+
+  -- Sniprun
+  use { 'michaelb/sniprun', run = 'sh ./install.sh'}
 	
   -- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins
