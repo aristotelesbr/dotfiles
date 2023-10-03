@@ -4,27 +4,7 @@ if not status_ok then
 end
 
 neogit.setup({
-	kind = "status",
+	kind = "auto",
 	integrations = { diffview = true },
 })
 
-local opts = { noremap = true, silent = true }
-local mappings = {
-	{
-		"n",
-		"<leader>gc",
-		function()
-			neogit.open({ "commit" })
-		end,
-		opts,
-	},
-	{
-		"n",
-		"<leader>gp",
-		function()
-			neogit.open({ "push" })
-		end,
-		opts,
-	},
-	{ "n", "<leader>gs", neogit.open, opts },
-}
