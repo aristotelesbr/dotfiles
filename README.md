@@ -4,9 +4,7 @@
 
 ## Instalation
 
-TODO: add description
-
-to install thi
+Copy this directory to `~/.config` and open neovim.
 
 ## Get healthy
 
@@ -29,11 +27,6 @@ First we'll fix copy/paste
   ```
   sudo pacman -S xsel
   ```
-  
-- Wayland users
-
-  [wl-clipboard](https://github.com/bugaevc/wl-clipboard)
-
 Next we need to install python support (node is optional)
 
 - Neovim python support
@@ -51,10 +44,8 @@ Next we need to install python support (node is optional)
 
 ### Neovim version
 
-    ```
     NVIM v0.9.0
     Build type: Release
     LuaJIT 2.1.0-beta3
-    ```
 
 Aristóteles Dotfiles
