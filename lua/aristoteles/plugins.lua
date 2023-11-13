@@ -62,6 +62,16 @@ return packer.startup(function(use)
 	use({ "folke/tokyonight.nvim", commit = "66bfc2e8f754869c7b651f3f47a2ee56ae557764" })
 	use({ "lunarvim/darkplus.nvim", commit = "13ef9daad28d3cf6c5e793acfc16ddbf456e1c83" })
   use({ "catppuccin/nvim", as = "catppuccin" })
+  use ({ 'projekt0n/github-nvim-theme' })
+
+  -- Cursor color
+  use({
+    'mvllow/modes.nvim',
+    tag = 'v0.2.0',
+    config = function()
+      require('modes').setup()
+    end
+  })
 
 	-- Cmp
 	use({ "hrsh7th/nvim-cmp", commit = "b0dff0ec4f2748626aae13f011d1a47071fe9abc" }) -- The completion plugin
@@ -83,7 +93,7 @@ return packer.startup(function(use)
 	use({ "RRethy/vim-illuminate", commit = "a2e8476af3f3e993bb0d6477438aad3096512e42" })
 
 	-- Telescope
-	use({ "nvim-telescope/telescope.nvim", commit = "76ea9a898d3307244dce3573392dcf2cc38f340f" })
+	use({ "nvim-telescope/telescope.nvim" })
 
 	-- Treesitter
 	use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
