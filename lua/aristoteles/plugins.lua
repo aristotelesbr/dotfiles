@@ -134,6 +134,9 @@ return packer.startup(function(use)
 
   -- Sniprun
   use { 'michaelb/sniprun', run = 'sh ./install.sh'}
+
+  -- Editor Config
+  use { 'editorconfig/editorconfig-vim' }
 	
   -- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins
