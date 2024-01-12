@@ -1,6 +1,6 @@
 local options = {
 	backup = false, -- creates a backup file
-	clipboard = "unnamedplus", -- allows neovim to access the system clipboard
+	clipboard = "unnamed", -- allows neovim to access the system clipboard
 	cmdheight = 2, -- more space in the neovim command line for displaying messages
 	completeopt = { "menuone", "noselect" }, -- mostly just for cmp
 	conceallevel = 0, -- so that `` is visible in markdown files
@@ -42,6 +42,8 @@ local options = {
 	background = "dark", -- tell vim what the background color looks like
 	list = true, -- show listchars
 	listchars = { tab = "▸\\", trail = "·", extends = "→", nbsp = "␣" }, -- set listchars
+	foldmethod = "syntax", -- fold based on syntax
+	foldlevelstart = 99, -- open all folds by default
 }
 
 for k, v in pairs(options) do
