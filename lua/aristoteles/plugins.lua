@@ -58,20 +58,21 @@ return packer.startup(function(use)
 	use({ "folke/which-key.nvim" })
 
 	-- Colorschemes
-  use({ "tpope/vim-vividchalk" })
+	use({ "tpope/vim-vividchalk" })
 	use({ "folke/tokyonight.nvim", commit = "66bfc2e8f754869c7b651f3f47a2ee56ae557764" })
 	use({ "lunarvim/darkplus.nvim", commit = "13ef9daad28d3cf6c5e793acfc16ddbf456e1c83" })
-  use({ "catppuccin/nvim", as = "catppuccin" })
-  use ({ 'projekt0n/github-nvim-theme' })
+	use({ "catppuccin/nvim", as = "catppuccin" })
+	use({ "projekt0n/github-nvim-theme" })
+	use({ "rose-pine/neovim" })
 
-  -- Cursor color
-  use({
-    'mvllow/modes.nvim',
-    tag = 'v0.2.0',
-    config = function()
-      require('modes').setup()
-    end
-  })
+	-- Cursor color
+	use({
+		"mvllow/modes.nvim",
+		tag = "v0.2.0",
+		config = function()
+			require("modes").setup()
+		end,
+	})
 
 	-- Cmp
 	use({ "hrsh7th/nvim-cmp", commit = "b0dff0ec4f2748626aae13f011d1a47071fe9abc" }) -- The completion plugin
@@ -100,15 +101,15 @@ return packer.startup(function(use)
 
 	-- Git
 	use({ "lewis6991/gitsigns.nvim", commit = "2c6f96dda47e55fa07052ce2e2141e8367cbaaf2" })
-  use({
-    'TimUntersberger/neogit',
-    dependencies = {
-      "nvim-lua/plenary.nvim",         -- required
-      "nvim-telescope/telescope.nvim", -- optional
-      "sindrets/diffview.nvim",        -- optional
-      "ibhagwan/fzf-lua",              -- optional
-    },
-  })
+	use({
+		"TimUntersberger/neogit",
+		dependencies = {
+			"nvim-lua/plenary.nvim", -- required
+			"nvim-telescope/telescope.nvim", -- optional
+			"sindrets/diffview.nvim", -- optional
+			"ibhagwan/fzf-lua", -- optional
+		},
+	})
 	use({
 		"zbirenbaum/copilot.lua",
 		cmd = "Copilot",
@@ -118,27 +119,27 @@ return packer.startup(function(use)
 		end,
 	})
 
-  -- markdown
-  use ({
-    "iamcco/markdown-preview.nvim",
-    config = function()
-      vim.fn["mkdp#util#install"]()
-    end,
-  })
+	-- markdown
+	use({
+		"iamcco/markdown-preview.nvim",
+		config = function()
+			vim.fn["mkdp#util#install"]()
+		end,
+	})
 
-  -- Crystal syntax highlighting 
-  use({"jlcrochet/vim-crystal"})
+	-- Crystal syntax highlighting
+	use({ "jlcrochet/vim-crystal" })
 
-  -- Presentations
-  use({'Chaitanyabsprip/present.nvim'})
+	-- Presentations
+	use({ "Chaitanyabsprip/present.nvim" })
 
-  -- Sniprun
-  use { 'michaelb/sniprun', run = 'sh ./install.sh'}
+	-- Sniprun
+	use({ "michaelb/sniprun", run = "sh ./install.sh" })
 
-  -- Editor Config
-  use { 'editorconfig/editorconfig-vim' }
-	
-  -- Automatically set up your configuration after cloning packer.nvim
+	-- Editor Config
+	use({ "editorconfig/editorconfig-vim" })
+
+	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins
 	if PACKER_BOOTSTRAP then
 		require("packer").sync()

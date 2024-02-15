@@ -74,11 +74,10 @@ vim.api.nvim_command("augroup END")
 
 -- _copilot
 local copilot_group = vim.api.nvim_create_augroup("_copilot", { clear = true })
---
+
 vim.api.nvim_create_autocmd("FileType", {
   group = copilot_group,
   pattern = "*",
   command = "Copilot suggestion",
 })
-
 

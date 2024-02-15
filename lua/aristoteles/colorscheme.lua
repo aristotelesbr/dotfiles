@@ -1,4 +1,3 @@
-
 -- colorscheme instaled
 -- local colorscheme = "vividchalk"
 
@@ -14,18 +13,11 @@
 --   return
 -- end
 
--- local colorscheme = "github_dark"
+local colorscheme = "rose-pine-dawn"
+-- local colorscheme = "github_light_colorblind"
 
-local colorscheme = "github_dark_high_contrast"
-
--- local status_ok, _ pcall(vim.cmd, "colorscheme " .. colorscheme)
--- if not status_ok then
---   return
--- end
---
-
-local status_ok, _ pcall(vim.cmd, "colorscheme " .. colorscheme)
+local status_ok, _
+pcall(vim.cmd, "colorscheme " .. colorscheme)
 if not status_ok then
-  return
+	return
 end
-
