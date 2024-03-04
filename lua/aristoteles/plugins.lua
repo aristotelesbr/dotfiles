@@ -64,7 +64,13 @@ return packer.startup(function(use)
 	use({ "catppuccin/nvim", as = "catppuccin" })
 	use({ "projekt0n/github-nvim-theme" })
 	use({ "rose-pine/neovim" })
-
+	use("tanvirtin/monokai.nvim")
+	-- use {
+	-- 	'aristotelesbr/soda.nvim',
+	-- 	config = function()
+	-- 		require('soda').setup()
+	-- 	end
+	-- }
 	-- Cursor color
 	use({
 		"mvllow/modes.nvim",
@@ -115,7 +121,7 @@ return packer.startup(function(use)
 		cmd = "Copilot",
 		event = "InsertEnter",
 		config = function()
-			require("copilot").setup({})
+			require("aristoteles.copilot")
 		end,
 	})
 

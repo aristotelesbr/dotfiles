@@ -13,8 +13,10 @@
 --   return
 -- end
 
-local colorscheme = "rose-pine-dawn"
--- local colorscheme = "github_light_colorblind"
+-- local colorscheme = "rose-pine-dawn"
+local colorscheme = "monokai"
+-- local colorscheme = "soda.nvim"
+-- local colorscheme = "github_light"
 
 local status_ok, _
 pcall(vim.cmd, "colorscheme " .. colorscheme)
