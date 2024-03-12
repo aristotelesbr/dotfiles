@@ -39,7 +39,7 @@ local options = {
 	guifont = "monospace:h17", -- the font used in graphical neovim applications
 	whichwrap = "bs<>[]hl", -- which "horizontal" keys are allowed to travel to prev/next line
 	colorcolumn = "80", -- fix for indentline
-	-- background = "light", -- tell vim what the background color looks like
+	background = "light", -- tell vim what the background color looks like
 	-- background = "dark", -- tell vim what the background color looks like
 	list = true, -- show listchars
 	listchars = { tab = "▸\\", trail = "·", extends = "→", nbsp = "␣" }, -- set listchars

@@ -65,12 +65,7 @@ return packer.startup(function(use)
 	use({ "projekt0n/github-nvim-theme" })
 	use({ "rose-pine/neovim" })
 	use("tanvirtin/monokai.nvim")
-	-- use {
-	-- 	'aristotelesbr/soda.nvim',
-	-- 	config = function()
-	-- 		require('soda').setup()
-	-- 	end
-	-- }
+
 	-- Cursor color
 	use({
 		"mvllow/modes.nvim",
