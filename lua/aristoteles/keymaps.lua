@@ -20,10 +20,10 @@ vim.g.maplocalleader = ","
 
 -- Normal --
 -- Sniprun
-keymap('n', ',,', ':SnipRun<CR>', opts)
+keymap("n", ",,", ":SnipRun<CR>", opts)
 
 -- Delete line without yanking
-keymap("n", "<Leader>dd", "\"_dd", opts)
+keymap("n", "<Leader>dd", '"_dd', opts)
 
 -- Open floating diagnostics
 keymap("n", "<Leader>of", ":lua vim.diagnostic.open_float(nil, {focus=false})<CR>", opts)
@@ -59,7 +59,7 @@ keymap("n", "<A-h>", "^", opts)
 keymap("n", "<A-l>", "$", opts)
 
 -- Insert --
--- Press jk fast to exit insert mode 
+-- Press jk fast to exit insert mode
 keymap("i", "jk", "<ESC>", opts)
 keymap("i", "kj", "<ESC>", opts)
 
@@ -80,10 +80,15 @@ keymap("x", "K", ":move '<-2<CR>gv-gv", opts)
 keymap("x", "<A-j>", ":move '>+1<CR>gv-gv", opts)
 keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 
+-- Test neo tests --
+keymap('n', '<leader>ta', ':lua require("neotest").run.run()<CR>', opts)
+keymap('n', '<leader>tf', ':lua require("neotest").run.run(vim.fn.expand("%"))<CR>', opts)
+keymap('n', '<leader>tl', ':lua require("neotest").run.run_last()<CR>', opts)
+keymap('n', '<leader>tt', ':lua require("neotest").run.run({vim.fn.expand("<cword>")})<CR>', opts)
+
 -- Terminal --
 -- Better terminal navigation
 -- keymap("t", "<C-h>", "<C-\\><C-N><C-w>h", term_opts)
 -- keymap("t", "<C-j>", "<C-\\><C-N><C-w>j", term_opts)
 -- keymap("t", "<C-k>", "<C-\\><C-N><C-w>k", term_opts)
 -- keymap("t", "<C-l>", "<C-\\><C-N><C-w>l", term_opts)
-
