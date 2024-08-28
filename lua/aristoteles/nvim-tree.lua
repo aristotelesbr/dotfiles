@@ -69,3 +69,4 @@ nvim_tree.setup {
     },
   },
 }
+

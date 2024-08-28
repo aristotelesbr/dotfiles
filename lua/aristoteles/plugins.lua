@@ -47,7 +47,7 @@ return packer.startup(function(use)
 	use({ "JoosepAlviste/nvim-ts-context-commentstring", commit = "4d3a68c41a53add8804f471fcc49bb398fe8de08" })
 	use({ "kyazdani42/nvim-web-devicons", commit = "563f3635c2d8a7be7933b9e547f7c178ba0d4352" })
 	use({ "kyazdani42/nvim-tree.lua", commit = "7282f7de8aedf861fe0162a559fc2b214383c51c" })
-	use({ "akinsho/bufferline.nvim", commit = "83bf4dc7bff642e145c8b4547aa596803a8b4dc4" })
+	use({ "akinsho/bufferline.nvim", tag = "*", requires = 'nvim-tree/nvim-web-devicons' })
 	use({ "moll/vim-bbye", commit = "25ef93ac5a87526111f43e5110675032dbcacf56" })
 	use({ "nvim-lualine/lualine.nvim", commit = "a52f078026b27694d2290e34efa61a6e4a690621" })
 	use({ "akinsho/toggleterm.nvim", commit = "2a787c426ef00cb3488c11b14f5dcf892bbd0bda" })
@@ -62,8 +62,6 @@ return packer.startup(function(use)
 	use({ "folke/tokyonight.nvim" })
 	use({ "lunarvim/darkplus.nvim" })
 	use({ "catppuccin/nvim", as = "catppuccin" })
-	use({ "projekt0n/github-nvim-theme" })
-	use({ "rose-pine/neovim" })
 	use("tanvirtin/monokai.nvim")
 
 	-- Cursor color
@@ -111,6 +109,13 @@ return packer.startup(function(use)
 			"ibhagwan/fzf-lua", -- optional
 		},
 	})
+
+	-- Devcontainers
+	use({ "esensar/nvim-dev-container" })
+
+	-- Miniicons
+	use({"echasnovski/mini.icons"})
+
 	use({
 		"zbirenbaum/copilot.lua",
 		cmd = "Copilot",
@@ -131,42 +136,12 @@ return packer.startup(function(use)
 	-- Crystal syntax highlighting
 	use({ "jlcrochet/vim-crystal" })
 
-	-- Presentations
-	use({ "Chaitanyabsprip/present.nvim" })
-
 	-- Sniprun
 	use({ "michaelb/sniprun", run = "sh ./install.sh" })
 
 	-- Editor Config
 	use({ "editorconfig/editorconfig-vim" })
 
-	use({
-		"nvim-neotest/neotest",
-		requires = {
-			"zidhuss/neotest-minitest",
-			"olimorris/neotest-rspec",
-			"nvim-neotest/nvim-nio",
-			"nvim-lua/plenary.nvim",
-			"antoinemadec/FixCursorHold.nvim",
-			"nvim-treesitter/nvim-treesitter",
-		},
-		config = function()
-			require("neotest").setup({
-				adapters = {
-					require("neotest-minitest")({}),
-					require("neotest-rspec")({
-						rspec_cmd = function()
-							return vim.tbl_flatten({
-								"bundle",
-								"exec",
-								"rspec",
-							})
-						end,
-					}),
-				},
-			})
-		end,
-	})
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins
 	if PACKER_BOOTSTRAP then
