@@ -1,10 +1,10 @@
 local servers = {
 	"lua_ls",
 	"html",
-	"tsserver",
 	"pyright",
 	"jsonls",
 	"solargraph",
+	"gopls",
 }
 
 local settings = {
