@@ -16,6 +16,14 @@ end
 null_ls.setup({
 	debug = false,
 	sources = {
+		conditional(function(utils)
+			return utils.root_has_file("Gemfile")
+					and null_ls.builtins.formatting.erb_format.with({
+						command = "bundle",
+						args = { "exec", "erb-format", "--stdin" },
+					})
+				or null_ls.builtins.formatting.erb_format
+		end),
 		formatting.prettier.with({ extra_args = { "--no-semi", "--single-quote", "--jsx-single-quote" } }),
 		diagnostics.eslint_d.with({
 			condition = function(utils)
@@ -24,33 +32,24 @@ null_ls.setup({
 		}),
 		formatting.black.with({ extra_args = { "--fast" } }),
 		formatting.stylua,
-		-- diagnostics.flake8,
-		-- Here we set a conditional to call the rubocop formatter.
-		-- If we have a Gemfile in the project, we call "bundle exec rubocop", if not we only call "rubocop".
 		conditional(function(utils)
-		  return utils.root_has_file("Gemfile")
-		    and null_ls.builtins.formatting.rubocop.with({
-		    command = "bundle",
-		    args = vim.list_extend(
-		      { "exec", "rubocop" },
-		      null_ls.builtins.formatting.rubocop._opts.args
-		    ),
-		  })
-		  or null_ls.builtins.formatting.rubocop
+			return utils.root_has_file("Gemfile")
+					and null_ls.builtins.formatting.rubocop.with({
+						command = "bundle",
+						args = vim.list_extend({ "exec", "rubocop" }, null_ls.builtins.formatting.rubocop._opts.args),
+					})
+				or null_ls.builtins.formatting.rubocop
 		end),
 
 		-- Same as above, but with diagnostics.rubocop to make sure we use the
 		-- proper rubocop version for the project
 		conditional(function(utils)
-		  return utils.root_has_file("Gemfile")
-		    and null_ls.builtins.diagnostics.rubocop.with({
-		    command = "bundle",
-		    args = vim.list_extend(
-		      { "exec", "rubocop" },
-		      null_ls.builtins.diagnostics.rubocop._opts.args
-		    ),
-		  })
-		  or null_ls.builtins.diagnostics.rubocop
+			return utils.root_has_file("Gemfile")
+					and null_ls.builtins.diagnostics.rubocop.with({
+						command = "bundle",
+						args = vim.list_extend({ "exec", "rubocop" }, null_ls.builtins.diagnostics.rubocop._opts.args),
+					})
+				or null_ls.builtins.diagnostics.rubocop
 		end),
 	},
 })

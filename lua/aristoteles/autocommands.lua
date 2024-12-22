@@ -81,8 +81,8 @@ vim.api.nvim_create_autocmd("FileType", {
 	command = "Copilot suggestion",
 })
 
-vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
-  pattern = {"*.heex", "*.svg"},
-  command = "set filetype=html",
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+	pattern = { "*.heex", "*.svg" },
+	command = "set filetype=html",
 })
 --
