@@ -3,8 +3,8 @@ local servers = {
 	"html",
 	"pyright",
 	"jsonls",
-	"solargraph",
 	"gopls",
+	"standardrb"
 }
 
 local settings = {
