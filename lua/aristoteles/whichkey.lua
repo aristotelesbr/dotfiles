@@ -309,6 +309,22 @@ local mappings = {
 		"<cmd>ToggleTerm size=80 direction=vertical<cr>",
 		desc = "Vertical",
 	},
+
+	-- Spell Check group
+	{
+		"<leader>s",
+		group = "Spell",
+	},
+	{
+		"<leader>st",
+		"<cmd>set spell! spelllang=pt_br<CR>",
+		desc = "Toggle Português",
+	},
+	{
+		"<leader>se",
+		"<cmd>set spell! spelllang=en_us<CR>",
+		desc = "Toggle English",
+	},
 }
 
 which_key.add(mappings, opts)
