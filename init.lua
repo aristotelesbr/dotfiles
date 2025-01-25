@@ -1,24 +1,33 @@
-require("aristoteles.options")
-require("aristoteles.keymaps")
-require("aristoteles.plugins")
-require("aristoteles.colorscheme")
-require("aristoteles.cmp")
-require("aristoteles.lsp")
-require("aristoteles.telescope")
-require("aristoteles.gitsigns")
-require("aristoteles.treesitter")
-require("aristoteles.autopairs")
-require("aristoteles.comment")
-require("aristoteles.nvim-tree")
-require("aristoteles.bufferline")
-require("aristoteles.lualine")
-require("aristoteles.toggleterm")
-require("aristoteles.project")
-require("aristoteles.impatient")
-require("aristoteles.indentline")
-require("aristoteles.alpha")
-require("aristoteles.whichkey")
-require("aristoteles.autocommands")
-require("aristoteles.neogit")
-require("aristoteles.golang")
-require("aristoteles.pyright")
+vim.g.mapleader = ","
+vim.g.maplocalleader = ","
+
+local disabled_built_ins = {
+	"netrw",
+	"netrwPlugin",
+	"netrwSettings",
+	"netrwFileHandlers",
+	"gzip",
+	"zip",
+	"zipPlugin",
+	"tar",
+	"tarPlugin",
+	"getscript",
+	"getscriptPlugin",
+	"vimball",
+	"vimballPlugin",
+	"2html_plugin",
+	"logipat",
+	"rrhelper",
+	"spellfile_plugin",
+}
+
+for _, plugin in pairs(disabled_built_ins) do
+	vim.g["loaded_" .. plugin] = 1
+end
+
+-- Load base plugins
+require("config.options")
+require("config.autocmds")
+require("config.keymaps")
+require("config.lazy")
+

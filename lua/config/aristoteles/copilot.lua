@@ -1,9 +1,4 @@
-local config_status_ok, nvim_copilot = pcall(require, "copilot")
-if not config_status_ok then
-	return
-end
-
-local options = {
+return {
 	panel = {
 		enabled = true,
 		auto_refresh = false,
@@ -48,5 +43,3 @@ local options = {
 	copilot_node_command = "node", -- Node.js version must be > 18.x
 	server_opts_overrides = {},
 }
-
-nvim_copilot.setup(options)

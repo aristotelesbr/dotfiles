@@ -1,4 +1,3 @@
--- _general_settings
 local general_settings_group = vim.api.nvim_create_augroup("_general_settings", { clear = true })
 
 vim.api.nvim_create_autocmd("FileType", {
@@ -80,14 +79,13 @@ vim.api.nvim_create_autocmd("FileType", {
 	pattern = "*",
 	command = "Copilot suggestion",
 })
-
+-- --
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 	pattern = { "*.heex", "*.svg" },
 	command = "set filetype=html",
 })
---
 
-vim.api.nvim_create_autocmd({"FocusGained", "BufEnter"}, {
-  pattern = "*",
-  command = "checktime"
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter" }, {
+	pattern = "*",
+	command = "checktime",
 })
