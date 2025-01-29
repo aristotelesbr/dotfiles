@@ -32,7 +32,31 @@ return {
 	-- DevContainers e ferramentas especializadas
 	{
 		"esensar/nvim-dev-container",
-		config = true,
+		lazy = false,
+		dependencies = {
+			"nvim-telescope/telescope.nvim",
+			"nvim-lua/plenary.nvim",
+		},
+		config = function()
+			require("devcontainer").setup({
+				container_runtime = "docker",
+				attach_mounts = {
+					always = true,
+					neovim_config = {
+						enabled = true,
+						options = { "readonly" },
+					},
+					neovim_data = {
+						enabled = false,
+						options = {},
+					},
+					nvim_state = {
+						enabled = false,
+						options = {},
+					},
+				},
+			})
+		end,
 	},
 	{
 		"zbirenbaum/copilot.lua",
@@ -44,6 +68,7 @@ return {
 	},
 	{
 		"iamcco/markdown-preview.nvim",
+		lazy = false,
 		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
 		build = "cd app && yarn install",
 		init = function()

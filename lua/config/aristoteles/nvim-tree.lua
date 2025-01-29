@@ -1,6 +1,13 @@
 return {
+  sort_by = "case_sensitive",
 	disable_netrw = true,
 	hijack_netrw = true,
+	filters = {
+		git_ignored = false,
+		dotfiles = false,
+		custom = {},
+		exclude = {},
+	},
 	update_focused_file = {
 		enable = true,
 		update_root = false,
@@ -8,15 +15,26 @@ return {
 	view = {
 		width = 30,
 		side = "right",
-		preserve_window_proportions = true,
 	},
-	sync_root_with_cwd = true,
-	actions = {
-		open_file = {
-			quit_on_open = false, -- Não feche o `nvim-tree` automaticamente ao abrir um arquivo.
+	renderer = {
+		group_empty = true,
+		highlight_git = true,
+		indent_markers = {
+			enable = true,
 		},
 	},
-	hijack_directories = {
-		enable = false, -- Não deixe o `nvim-tree` dominar ao fechar buffers.
+	git = {
+		enable = true,
+		ignore = false,
+		timeout = 400,
 	},
+	-- sync_root_with_cwd = true,
+	-- actions = {
+	-- 	open_file = {
+	-- 		quit_on_open = false,
+	-- 	},
+	-- },
+	-- hijack_directories = {
+	-- 	enable = false,
+	-- },
 }

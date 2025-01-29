@@ -34,11 +34,17 @@ return {
 	{
 		"folke/which-key.nvim",
 		event = "VeryLazy",
+		priority = 999,
 		init = function()
 			vim.o.timeout = true
-			vim.o.timeoutlen = 300
+			vim.o.timeoutlen = 500
 		end,
-		config = function()
+		opts = function()
+			return require("config.aristoteles.whichkey").opts
+		end,
+		config = function(_, opts)
+			local wk = require("which-key")
+			wk.setup(opts)
 			require("config.aristoteles.whichkey").setup()
 		end,
 	},
@@ -48,13 +54,15 @@ return {
 	},
 	{
 		"goolord/alpha-nvim",
-		priority = 1000, -- Load this before other plugins
+		lazy = false,
 		dependencies = {
 			"nvim-tree/nvim-web-devicons",
 			"nvim-lua/plenary.nvim",
 		},
 		config = function()
-			require("alpha").setup(require("config.aristoteles.alpha").opts)
+			local dashboard = require("config.aristoteles.alpha")
+			require("alpha").setup(dashboard.opts)
+			vim.keymap.set("n", "<leader>A", ":Alpha<CR>", { desc = "Dashboard", silent = true })
 		end,
 	},
 }

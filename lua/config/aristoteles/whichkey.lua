@@ -9,7 +9,7 @@ M.opts = {
 			suggestions = 20,
 		},
 		presets = {
-			operators = false,
+			operators = true,
 			motions = true,
 			text_objects = true,
 			windows = true,
@@ -20,16 +20,35 @@ M.opts = {
 	},
 	triggers = {
 		{ "<leader>", mode = { "n", "v" } },
+		{ "g", mode = { "n", "v" } },
+		{ "z", mode = { "n", "v" } },
+		{ "d", mode = { "n", "v" } },
+		{ "y", mode = { "n", "v" } },
+		{ "]", mode = { "n", "v" } },
+		{ "[", mode = { "n", "v" } },
 	},
+	-- triggers_nowait = {
+	-- 	"z=",
+	-- 	"z.",
+	-- 	"zf",
+	-- 	"zg",
+	-- 	"zw",
+	-- },
+	show_help = true,
+	show_keys = true,
+	-- key_labels = {
+	-- 	["<leader>"] = "SPC",
+	-- 	["<cr>"] = "↵",
+	-- 	["<tab>"] = "⇆",
+	-- },
 }
 
 M.setup = function()
 	local wk = require("which-key")
 	wk.setup(M.opts)
 
-	-- Registrar mapeamentos
 	wk.add({
-		-- Grupos principais
+		-- Main groups
 		{ "<leader>f", desc = "+Find" },
 		{ "<leader>g", desc = "+Git" },
 		{ "<leader>l", desc = "+LSP" },
@@ -38,17 +57,22 @@ M.setup = function()
 		{ "<leader>t", desc = "+Terminal" },
 		{ "<leader>x", desc = "+Spell" },
 
-		-- Mapeamentos diretos
+		-- Direct mappings
 		{ "<leader>F", "<cmd>Telescope live_grep theme=ivy<cr>", desc = "Find Text" },
 		{ "<leader>P", "<cmd>lua require('telescope').extensions.projects.projects()<cr>", desc = "Projects" },
-		{ "<leader>a", "<cmd>Alpha<cr>", desc = "Alpha" },
+		{ "<leader>A", "<cmd>Alpha<cr>", desc = "Dashboard" },
 		{ "<leader>c", "<cmd>bd!<CR>:bnext<CR>", desc = "Close Buffer" },
 		{ "<leader>e", "<cmd>NvimTreeToggle<cr>", desc = "Explorer" },
 		{ "<leader>h", "<cmd>nohlsearch<CR>", desc = "No Highlight" },
 		{ "<leader>q", "<cmd>q!<CR>", desc = "Quit" },
 		{ "<leader>w", "<cmd>w!<CR>", desc = "Save" },
+		{
+			"<leader>b",
+			"<cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_dropdown{previewer = false})<cr>",
+			desc = "Buffers",
+		},
 
-		-- Grupo Find
+		-- Find Group
 		{
 			"<leader>ff",
 			"<cmd>lua require('telescope.builtin').find_files(require('telescope.themes').get_dropdown{previewer = false})<cr>",
@@ -56,7 +80,7 @@ M.setup = function()
 		},
 		{ "<leader>fg", "<cmd>Telescope live_grep<cr>", desc = "Live Grep" },
 
-		-- Grupo Git
+		-- Git Group
 		{ "<leader>gR", "<cmd>lua require 'gitsigns'.reset_buffer()<cr>", desc = "Reset Buffer" },
 		{ "<leader>gb", "<cmd>Telescope git_branches<cr>", desc = "Checkout Branch" },
 		{ "<leader>gc", "<cmd>Telescope git_commits<cr>", desc = "Checkout Commit" },
@@ -71,7 +95,7 @@ M.setup = function()
 		{ "<leader>gs", "<cmd>Neogit<cr>", desc = "Status" },
 		{ "<leader>gu", "<cmd>lua require 'gitsigns'.undo_stage_hunk()<cr>", desc = "Undo Stage Hunk" },
 
-		-- Grupo LSP
+		-- LSP Group
 		{ "<leader>lI", "<cmd>Mason<cr>", desc = "Mason Info" },
 		{ "<leader>lS", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", desc = "Workspace Symbols" },
 		{ "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>", desc = "Code Action" },
@@ -86,14 +110,14 @@ M.setup = function()
 		{ "<leader>ls", "<cmd>Telescope lsp_document_symbols<cr>", desc = "Document Symbols" },
 		{ "<leader>lw", "<cmd>Telescope diagnostics<cr>", desc = "Workspace Diagnostics" },
 
-		-- Grupo Package
+		-- Package Group
 		{ "<leader>pS", "<cmd>Lazy show<cr>", desc = "Status" },
 		{ "<leader>pc", "<cmd>Lazy check<cr>", desc = "Check" },
 		{ "<leader>pi", "<cmd>Lazy install<cr>", desc = "Install" },
 		{ "<leader>ps", "<cmd>Lazy sync<cr>", desc = "Sync" },
 		{ "<leader>pu", "<cmd>Lazy update<cr>", desc = "Update" },
 
-		-- Grupo Search
+		-- Search Group
 		{ "<leader>sC", "<cmd>Telescope commands<cr>", desc = "Commands" },
 		{ "<leader>sM", "<cmd>Telescope man_pages<cr>", desc = "Man Pages" },
 		{ "<leader>sR", "<cmd>Telescope registers<cr>", desc = "Registers" },
@@ -103,7 +127,7 @@ M.setup = function()
 		{ "<leader>sk", "<cmd>Telescope keymaps<cr>", desc = "Keymaps" },
 		{ "<leader>sr", "<cmd>Telescope oldfiles<cr>", desc = "Open Recent File" },
 
-		-- Grupo Terminal
+		-- Terminal Group
 		{ "<leader>tf", "<cmd>ToggleTerm direction=float<cr>", desc = "Float" },
 		{ "<leader>th", "<cmd>ToggleTerm size=10 direction=horizontal<cr>", desc = "Horizontal" },
 		{ "<leader>tn", "<cmd>lua _NODE_TOGGLE()<cr>", desc = "Node" },
@@ -112,7 +136,7 @@ M.setup = function()
 		{ "<leader>tu", "<cmd>lua _NCDU_TOGGLE()<cr>", desc = "NCDU" },
 		{ "<leader>tv", "<cmd>ToggleTerm size=80 direction=vertical<cr>", desc = "Vertical" },
 
-		-- Grupo Spell
+		-- Spell Group
 		{ "<leader>xe", "<cmd>set spell! spelllang=en_us<CR>", desc = "Toggle English" },
 		{ "<leader>xt", "<cmd>set spell! spelllang=pt_br<CR>", desc = "Toggle Português" },
 	})

@@ -4,6 +4,7 @@ return {
 		"c",
 		"javascript",
 		"json",
+    "jsonc",
 		"lua",
 		"ruby",
 		"go",
