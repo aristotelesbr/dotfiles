@@ -15,7 +15,23 @@ return {
 		cmd = "Neogit",
 		config = true,
 	},
-
+	{
+		"kdheepak/lazygit.nvim",
+		lazy = true,
+		cmd = {
+			"LazyGit",
+			"LazyGitConfig",
+			"LazyGitCurrentFile",
+			"LazyGitFilter",
+			"LazyGitFilterCurrentFile",
+		},
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+		},
+		keys = {
+			-- { "<leader>lg", "<cmd>LazyGit<cr>", desc = "LazyGit" },
+		},
+	},
 	{
 		"nvim-telescope/telescope.nvim",
 		cmd = "Telescope",
@@ -39,7 +55,6 @@ return {
 		},
 		config = function()
 			require("devcontainer").setup({
-				container_runtime = "docker",
 				attach_mounts = {
 					always = true,
 					neovim_config = {
@@ -47,11 +62,11 @@ return {
 						options = { "readonly" },
 					},
 					neovim_data = {
-						enabled = false,
+						enabled = true,
 						options = {},
 					},
 					nvim_state = {
-						enabled = false,
+						enabled = true,
 						options = {},
 					},
 				},
