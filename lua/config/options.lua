@@ -1,3 +1,5 @@
+vim.g.mapleader = ","
+
 local options = {
   hidden = true,
   backup = false,
@@ -25,12 +27,10 @@ local options = {
   softtabstop = 2,
   expandtab = true,
   cursorline = true,
-
   number = true,
   relativenumber = false,
   numberwidth = 4,
   autoindent = true,
-
   signcolumn = "yes",
   wrap = true,
   linebreak = true,

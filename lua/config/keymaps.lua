@@ -1,3 +1,6 @@
+-- Keymaps are automatically loaded on the VeryLazy event
+-- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
+-- Add any additional keymaps here
 local opts = { noremap = true, silent = true }
 
 local term_opts = { silent = true }
@@ -76,10 +79,10 @@ keymap("x", "<A-j>", ":move '>+1<CR>gv-gv", opts)
 keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 
 -- Test neo tests --
-keymap('n', '<leader>ta', ':lua require("neotest").run.run()<CR>', opts)
-keymap('n', '<leader>tf', ':lua require("neotest").run.run(vim.fn.expand("%"))<CR>', opts)
-keymap('n', '<leader>tl', ':lua require("neotest").run.run_last()<CR>', opts)
-keymap('n', '<leader>tt', ':lua require("neotest").run.run({vim.fn.expand("<cword>")})<CR>', opts)
+keymap("n", "<leader>ta", ':lua require("neotest").run.run()<CR>', opts)
+keymap("n", "<leader>tf", ':lua require("neotest").run.run(vim.fn.expand("%"))<CR>', opts)
+keymap("n", "<leader>tl", ':lua require("neotest").run.run_last()<CR>', opts)
+keymap("n", "<leader>tt", ':lua require("neotest").run.run({vim.fn.expand("<cword>")})<CR>', opts)
 
 -- Terminal --
 -- Better terminal navigation
