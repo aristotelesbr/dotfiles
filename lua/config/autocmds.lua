@@ -79,16 +79,14 @@ vim.api.nvim_command("autocmd User AlphaReady lua vim.api.nvim_set_option('showt
 vim.api.nvim_command("autocmd BufUnload <buffer> lua vim.api.nvim_set_option('showtabline', 2)")
 vim.api.nvim_command("augroup END")
 
--- _copilot
--- local copilot_group = vim.api.nvim_create_augroup("_copilot", { clear = true })
-
--- vim.api.nvim_create_autocmd("FileType", {
---  group = copilot_group,
--- pattern = "*",
--- command = "Copilot suggestion",
--- })
--- --
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   pattern = { "*.heex", "*.svg" },
   command = "set filetype=html",
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "ruby",
+  callback = function()
+    vim.b.autoformat = false
+  end,
 })
