@@ -13,8 +13,9 @@ return {
     {
       "<leader>F",
       function()
-        require("telescope.builtin").live_grep({ cwd = require("lazy.core.config").options.root })
+        require("telescope.builtin").live_grep({ cwd = vim.loop.cwd() })
       end,
+      desc = "Live grep in current project",
     },
   },
   -- change some options
