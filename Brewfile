@@ -211,4 +211,5 @@ cask "vlc"
 cask "zed"
 # Video conferencing platform
 cask "zoom"
-
+# Secure password manager
+cast "bitwarden-cli"

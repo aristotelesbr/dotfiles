@@ -12,7 +12,7 @@ alias ....="cd ../../.."
 alias h="history"
 alias j="jobs"
 alias c="clear"
-alias l="ls -l"
+alias l="lsd"
 alias la="ls -la"
 
 # List all files colorized in long format

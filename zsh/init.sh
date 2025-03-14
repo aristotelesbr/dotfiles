@@ -10,9 +10,10 @@ compinit -i
 zsh_dir=$XDG_CONFIG_HOME/zsh
 
 source $zsh_dir/exports.sh
-source $zsh_dir/oh-my-zsh.sh
-source $zsh_dir/starship.sh
-source $zsh_dir/tmux.sh
-source $zsh_dir/aliases.sh
-source $zsh_dir/ssh.sh
-source $zsh_dir/fzf.sh
+# source $zsh_dir/oh-my-zsh.sh
+# source $zsh_dir/starship.sh
+# source $zsh_dir/tmux.sh
+# source $zsh_dir/aliases.sh
+# source $zsh_dir/ssh.sh
+# source $zsh_dir/fzf.sh
+source $zsh_dir/bitwarden.sh

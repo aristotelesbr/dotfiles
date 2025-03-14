@@ -17,10 +17,11 @@ test-env() {
 
 export GPG_TTY=$(tty)
 
+eval "$(echo $HELLO)"
 # ASDF
 export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 
 # EXTRA
 export PGGSSENCMODE="disable"
 
-source $HOME/.secrets.sh
+# source $HOME/.secrets.sh
