@@ -2,14 +2,25 @@ return {
   {
     "yetone/avante.nvim",
     event = "VeryLazy",
-    lazy = false,
     version = false,
-    opts = {},
+    opts = {
+      provider = "openai",
+      openai = {
+        endpoint = "https://api.openai.com/v1",
+        model = "gpt-4o",
+        timeout = 30000,
+        temperature = 0,
+        max_tokens = 8192,
+        reasoning_effort = "medium", -- low|medium|high, only used for reasoning models
+      },
+    },
     build = "make",
     dependencies = {
+      "nvim-treesitter/nvim-treesitter",
       "stevearc/dressing.nvim",
       "nvim-lua/plenary.nvim",
       "MunifTanjim/nui.nvim",
+      --- The below dependencies are optional,
       "echasnovski/mini.pick",
       "nvim-telescope/telescope.nvim",
       "hrsh7th/nvim-cmp",
@@ -23,8 +34,9 @@ return {
           default = {
             embed_image_as_base64 = false,
             prompt_for_file_name = false,
-            drag_and_drop = { insert_mode = true },
-            use_absolute_path = true,
+            drag_and_drop = {
+              insert_mode = true,
+            },
           },
         },
       },
