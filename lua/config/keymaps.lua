@@ -13,8 +13,13 @@ local keymap = vim.api.nvim_set_keymap
 --   command_mode = "c",
 
 -- Normal --
--- Sniprun
-keymap("n", ",,", ":SnipRun<CR>", opts)
+
+-- Jumpt to start of line using ESC + h or ESC + l
+keymap("n", "<Esc>h", "^", opts)
+keymap("n", "<Esc>l", "$", opts)
+
+-- Remap space as leader key
+keymap("n", "<leader>sl", ":set spell!<CR>", { desc = "Toggle spelling" })
 
 -- Delete line without yanking
 keymap("n", "<Leader>dd", '"_dd', opts)
@@ -56,6 +61,10 @@ keymap("n", "<A-l>", "$", opts)
 -- Press jk fast to exit insert mode
 keymap("i", "jk", "<ESC>", opts)
 keymap("i", "kj", "<ESC>", opts)
+
+-- Jump to start of line using ESC + h or ESC + l
+keymap("i", "<Esc>h", "<C-o>^", opts)
+keymap("i", "<Esc>l", "<C-o>$", opts)
 
 -- Visual --
 -- Stay in indent mode

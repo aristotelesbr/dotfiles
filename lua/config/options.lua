@@ -45,6 +45,8 @@ local options = {
   foldmethod = "indent",
   foldlevelstart = 99,
   autoread = true,
+  spell = true,
+  spelllang = { "pt_br", "en_us" },
 }
 
 for k, v in pairs(options) do
