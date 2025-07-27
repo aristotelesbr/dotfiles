@@ -23,7 +23,7 @@ require("lazy").setup({
     lazy = false,
     version = false,
   },
-  install = { colorscheme = { "soda", "tokyonight", "habamax" } },
+  install = { colorscheme = { "NeoSolarized" } },
   checker = {
     enabled = true,
     notify = false,

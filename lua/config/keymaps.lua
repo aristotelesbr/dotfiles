@@ -14,10 +14,6 @@ local keymap = vim.api.nvim_set_keymap
 
 -- Normal --
 
--- Jumpt to start of line using ESC + h or ESC + l
-keymap("n", "<Esc>h", "^", opts)
-keymap("n", "<Esc>l", "$", opts)
-
 -- Remap space as leader key
 keymap("n", "<leader>sl", ":set spell!<CR>", { desc = "Toggle spelling" })
 

@@ -24,4 +24,5 @@ export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 # EXTRA
 export PGGSSENCMODE="disable"
 
+export PATH="$HOMEBREW_PREFIX/opt/coreutils/libexec/gnubin:$PATH"
 # source $HOME/.secrets.sh
