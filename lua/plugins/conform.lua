@@ -8,6 +8,8 @@ return {
         javascript = { "prettier" },
         typescript = { "prettier" },
         astro = { "prettier" },
+        css = { "prettier" },
+        scss = { "prettier" },
       },
     },
   },
