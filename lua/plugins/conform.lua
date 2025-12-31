@@ -10,6 +10,7 @@ return {
         astro = { "prettier" },
         css = { "prettier" },
         scss = { "prettier" },
+        go = { "goimports" },
       },
     },
   },
