@@ -5,7 +5,7 @@ return {
     {
       "<C-p>",
       function()
-        require("telescope.builtin").find_files({ cwd = require("lazy.core.config").options.root })
+        require("telescope.builtin").find_files()
       end,
       desc = "Find Plugin File",
     },
@@ -13,7 +13,7 @@ return {
     {
       "<leader>F",
       function()
-        require("telescope.builtin").live_grep({ cwd = vim.loop.cwd() })
+        require("telescope.builtin").live_grep()
       end,
       desc = "Live grep in current project",
     },
