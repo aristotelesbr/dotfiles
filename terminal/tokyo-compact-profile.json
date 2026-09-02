@@ -2,11 +2,11 @@
   "ASCII Anti Aliased": true,
   "ASCII Ligatures": false,
   "Ansi 0 Color": {
-    "Alpha Component": 1,
-    "Blue Component": 0.14901960784313725,
     "Color Space": "sRGB",
-    "Green Component": 0.10588235294117647,
-    "Red Component": 0.10196078431372549
+    "Red Component": 0.1607843137254902,
+    "Green Component": 0.1803921568627451,
+    "Blue Component": 0.25882352941176473,
+    "Alpha Component": 1
   },
   "Ansi 1 Color": {
     "Alpha Component": 1,
@@ -155,7 +155,7 @@
   },
   "Guid": "5A8BFC9D-5C92-472A-9B1E-E2FF32E9B388",
   "Horizontal Spacing": 1.0,
-  "Minimum Contrast": 0,
+  "Minimum Contrast": 0.5,
   "Name": "Tokyo Compact",
   "Non-ASCII Anti Aliased": true,
   "Non-ASCII Ligatures": false,
