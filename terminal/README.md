@@ -19,4 +19,14 @@ at Settings → Appearance:
 - General → Theme: `Minimal` (hides the title bar, borderless window)
 - Panes → Side Margins → Side margins: `14`, Top & bottom margins: `14`
 
+## Wallpaper
+
+`wallpaper/tokyo-compact.png` — original generated image: dark gradient in
+the same palette, a glowing accent mark, and the profile name as a small
+watermark. Set it via System Settings → Wallpaper, or:
+
+```
+osascript -e 'tell application "System Events" to tell every desktop to set picture to "'"$(pwd)"'/terminal/wallpaper/tokyo-compact.png"'
+```
+
 Tmux config lives in `../tmux-config/tmux/`.
