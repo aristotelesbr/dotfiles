@@ -121,6 +121,7 @@
     "Red Component": 0.10196078431372549
   },
   "Blinking Cursor": false,
+  "Cursor Type": 0,
   "Blur": false,
   "Blur Radius": 0.1,
   "Bold Color": {

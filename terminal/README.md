@@ -8,13 +8,15 @@ Move the `starship.toml` file to `~/.config/starship.toml` to customize your Sta
 
 Import via iTerm2 → Preferences → Profiles → Other Actions ▾ → Import JSON Profiles...
 
-### Window margins
+### Window chrome
 
 These aren't part of the profile — iTerm2 stores them as global app preferences,
-so they don't carry over on import and need to be set by hand on each machine
-at Settings → Appearance → Panes → Side Margins:
+so they don't carry over on import. `install.sh` sets them automatically
+(`configure_iterm`, macOS only — quit iTerm2 first, since it caches these in
+memory and can overwrite the write on its next flush). To set by hand instead,
+at Settings → Appearance:
 
-- Side margins: `14`
-- Top & bottom margins: `8`
+- General → Theme: `Minimal` (hides the title bar, borderless window)
+- Panes → Side Margins → Side margins: `14`, Top & bottom margins: `14`
 
 Tmux config lives in `../tmux-config/tmux/`.

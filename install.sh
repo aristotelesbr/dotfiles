@@ -251,6 +251,33 @@ install_fonts() {
   done
 }
 
+configure_iterm() {
+  if [ "$(uname -s)" != "Darwin" ]; then
+    skip "not on macOS"
+    return
+  fi
+  if ! command -v defaults >/dev/null 2>&1; then
+    skip "defaults(1) not available"
+    return
+  fi
+
+  # Global app prefs, not part of the profile JSON — iTerm2 caches these in
+  # memory and flushes to disk on its own schedule, so a write while it's
+  # running can be silently overwritten. Quit it first for a reliable apply.
+  if pgrep -qx iTerm2; then
+    warn "iTerm2 is running — quit it (Cmd-Q) and re-run for this to stick reliably"
+  fi
+
+  run defaults write com.googlecode.iterm2 SideMargin -int 14
+  run defaults write com.googlecode.iterm2 TopBottomMargin -int 14
+  ok "window margins set (side 14, top/bottom 14)"
+
+  # Theme: Minimal — hides the title bar for a borderless window, closest
+  # match to the reference terminals' `decorations = "None"`.
+  run defaults write com.googlecode.iterm2 TabStyleWithAutomaticOption -int 5
+  ok "theme set to Minimal (borderless window)"
+}
+
 check_deps() {
   local missing=() cmd
   for cmd in zsh nvim tmux starship fzf lsd; do
@@ -294,6 +321,9 @@ stash_legacy_configs
 
 info "tmux"
 reload_tmux
+
+info "iTerm2"
+configure_iterm
 
 if $WITH_CLEAN; then
   info "Residual cleanup"
