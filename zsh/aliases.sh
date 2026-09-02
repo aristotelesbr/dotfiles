@@ -1,27 +1,5 @@
 # Aliases for commonly used commands
 
-# YouTube download cut
-ytdlcut() {
-  yt-dlp \
-    --download-sections "*$1" \
-    -f "bestvideo+bestaudio/best" \
-    "$2"
-}
-
-## YouTube download aliases
-#
-# Download best video + audio
-alias ytdl='yt-dlp -f "bestvideo+bestaudio/best"'
-# Download just mp4
-alias ytdlmp4='yt-dlp -f bestvideo+bestaudio --merge-output-format mp4'
-# Download just mp3
-alias ytdlaudio='yt-dlp -f bestaudio --extract-audio --audio-format mp3'
-# Download cut (alternative syntax). Usage:
-# ytdlcut "00:01:00-00:02:00" https://youtu.be/XXXX
-alias ytdlcut='yt-dlp --download-sections "*${1}" -f "bestvideo+bestaudio/best"'
-# Download Instagram videos using cookies from Chrome
-alias igdl='yt-dlp --cookies-from-browser chrome'
-
 # reload .zshrc
 alias reload="source ~/.zshrc"
 
