@@ -278,6 +278,25 @@ configure_iterm() {
   ok "theme set to Minimal (borderless window)"
 }
 
+configure_macos() {
+  if [ "$(uname -s)" != "Darwin" ]; then
+    skip "not on macOS"
+    return
+  fi
+  if ! command -v defaults >/dev/null 2>&1; then
+    skip "defaults(1) not available"
+    return
+  fi
+
+  # System-wide flat look, matching blur.enabled = false everywhere else in
+  # this setup: menu bar, Dock, and Finder sidebars stop using the frosted-
+  # glass vibrancy effect.
+  run defaults write com.apple.universalaccess reduceTransparency -bool true
+  run killall SystemUIServer 2>/dev/null || true
+  run killall Dock 2>/dev/null || true
+  ok "system transparency (blur) disabled"
+}
+
 check_deps() {
   local missing=() cmd
   for cmd in zsh nvim tmux starship fzf lsd; do
@@ -324,6 +343,9 @@ reload_tmux
 
 info "iTerm2"
 configure_iterm
+
+info "macOS"
+configure_macos
 
 if $WITH_CLEAN; then
   info "Residual cleanup"
