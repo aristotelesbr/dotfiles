@@ -12,11 +12,9 @@ Import via iTerm2 → Preferences → Profiles → Other Actions ▾ → Import 
 
 These aren't part of the profile — iTerm2 stores them as global app preferences,
 so they don't carry over on import and need to be set by hand on each machine
-at Settings → Appearance → General:
+at Settings → Appearance → Panes → Side Margins:
 
-- Side margin: `14`
-- Top/bottom margin: `14`
-- Terminal margin: `16`
-- Terminal vertical margin: `12`
+- Side margins: `14`
+- Top & bottom margins: `8`
 
 Tmux config lives in `../tmux-config/tmux/`.
