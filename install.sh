@@ -2,22 +2,23 @@
 #
 # Dotfiles installer
 #
-# Coloca cada parte deste repo onde a ferramenta correspondente procura por ela.
-# Por padrão cria symlinks, então editar um arquivo no repo já vale na hora e o
-# `git status` continua enxergando suas mudanças. Use --copy para cópias soltas.
+# Puts each part of this repo where the corresponding tool looks for it.
+# By default it creates symlinks, so editing a file in the repo takes effect
+# right away and `git status` still sees your changes. Use --copy for loose
+# copies instead.
 #
-# Configuração estática que já existir no destino não é apagada: ela é movida
-# para ~/.dotfiles-old/ com o sufixo -old (ex.: nvim -> ~/.dotfiles-old/nvim-old).
-# Já os artefatos regeneráveis das configs antigas (plugins do lazy.nvim, mason,
-# TPM, caches, zcompdump) são removidos na fase de limpeza, com confirmação.
+# Static config that already exists at the destination isn't deleted: it's
+# moved to ~/.dotfiles-old/ with an -old suffix (e.g. nvim -> ~/.dotfiles-old/nvim-old).
+# Regenerable artifacts left by previous configs (lazy.nvim plugins, mason,
+# TPM, caches, zcompdump) are removed in the cleanup phase, with confirmation.
 #
-#   ./install.sh                 # instala tudo (configs, shell, fontes, limpeza)
-#   ./install.sh --dry-run       # mostra o que faria, sem alterar nada
-#   ./install.sh --copy          # copia em vez de linkar
-#   ./install.sh --no-fonts      # pula a instalação das fontes
-#   ./install.sh --no-clean      # pula a limpeza de resíduos
-#   ./install.sh --yes           # não pergunta nada (para automação)
-#   ./install.sh --config-home D # usa D no lugar de ~/.config
+#   ./install.sh                 # install everything (configs, shell, fonts, cleanup)
+#   ./install.sh --dry-run       # show what it would do, without changing anything
+#   ./install.sh --copy          # copy instead of symlinking
+#   ./install.sh --no-fonts      # skip font installation
+#   ./install.sh --no-clean      # skip residual cleanup
+#   ./install.sh --yes           # don't ask anything (for automation)
+#   ./install.sh --config-home D # use D instead of ~/.config
 
 set -euo pipefail
 
@@ -54,18 +55,18 @@ while [ $# -gt 0 ]; do
     --no-fonts)    WITH_FONTS=false ;;
     --no-clean)    WITH_CLEAN=false ;;
     --yes|-y)      ASSUME_YES=true ;;
-    --config-home) shift; [ $# -gt 0 ] || die "--config-home precisa de um diretório"
+    --config-home) shift; [ $# -gt 0 ] || die "--config-home needs a directory"
                    CONFIG_HOME="$1" ;;
     -h|--help)     usage ;;
-    *)             die "opção desconhecida: $1 (use --help)" ;;
+    *)             die "unknown option: $1 (use --help)" ;;
   esac
   shift
 done
 
-# Caminho com $HOME abreviado para ~, só para deixar a saída legível.
+# Path with $HOME shortened to ~, just to keep the output readable.
 short() { local tilde='~'; printf '%s' "${1/#$HOME/$tilde}"; }
 
-# Executa de verdade, ou só imprime quando --dry-run está ligado.
+# Actually runs, or just prints when --dry-run is on.
 run() {
   if $DRY_RUN; then
     printf '    %s %s\n' "${DIM}would run:${RESET}" "${DIM}$*${RESET}"
@@ -79,7 +80,7 @@ confirm() {
     return 0
   fi
   if [ ! -t 0 ]; then
-    warn "sem terminal interativo — pulando (use --yes para confirmar)"
+    warn "no interactive terminal — skipping (use --yes to confirm)"
     return 1
   fi
   local reply
@@ -88,34 +89,34 @@ confirm() {
   case "$reply" in [yY]*) return 0 ;; *) return 1 ;; esac
 }
 
-# Move o que estiver em $1 para ~/.dotfiles-old/<nome>-old, preservando o
-# conteúdo. Nada é apagado aqui.
+# Moves whatever is at $1 to ~/.dotfiles-old/<name>-old, preserving its
+# contents. Nothing gets deleted here.
 stash_old() {
   local path="$1"
   local target="$OLD_DIR/$(basename "$path")-old"
-  # Instalações anteriores podem já ter deixado um -old ali; não sobrescreve.
+  # A previous install may have already left an -old there; don't overwrite it.
   if [ -e "$target" ] || [ -L "$target" ]; then
     target="$target.$(date +%Y%m%d-%H%M%S)"
   fi
   run mkdir -p "$OLD_DIR"
   run mv "$path" "$target"
-  warn "movido: $(short "$path") → $(short "$target")"
+  warn "moved: $(short "$path") → $(short "$target")"
 }
 
-# install_item <caminho relativo ao repo> <destino absoluto>
+# install_item <path relative to the repo> <absolute destination>
 install_item() {
   local src="$DOTFILES/$1" dst="$2"
 
-  [ -e "$src" ] || die "não existe no repo: $1"
+  [ -e "$src" ] || die "doesn't exist in the repo: $1"
 
   if [ -L "$dst" ] && [ "$(readlink "$dst")" = "$src" ]; then
-    skip "$(short "$dst") já aponta pro repo"
+    skip "$(short "$dst") already points to the repo"
     return
   fi
 
   if [ -e "$dst" ] || [ -L "$dst" ]; then
-    # Symlink quebrado ou apontando para outro lugar não é config do usuário:
-    # não vale a pena guardar, só remove.
+    # A broken symlink, or one pointing elsewhere, isn't user config:
+    # not worth keeping, just remove it.
     if [ -L "$dst" ]; then
       run rm "$dst"
     else
@@ -126,15 +127,15 @@ install_item() {
   run mkdir -p "$(dirname "$dst")"
   if [ "$MODE" = "copy" ]; then
     run cp -R "$src" "$dst"
-    ok "cópia   $(short "$dst") ← $1"
+    ok "copy    $(short "$dst") ← $1"
   else
     run ln -s "$src" "$dst"
     ok "symlink $(short "$dst") → $1"
   fi
 }
 
-# Configs estáticas de versões antigas que não moram mais nos caminhos atuais.
-# Vão para ~/.dotfiles-old/ com sufixo -old, igual ao resto.
+# Static config from older versions that no longer live at their current
+# paths. Goes to ~/.dotfiles-old/ with an -old suffix, same as everything else.
 stash_legacy_configs() {
   local found=false path
   for path in "$HOME/.zsh" "$HOME/.tmux.conf" "$HOME/.tmux.reset.conf" "$HOME/.vimrc"; do
@@ -144,13 +145,13 @@ stash_legacy_configs() {
     fi
   done
   if ! $found; then
-    skip "nenhuma config legada solta no \$HOME"
+    skip "no legacy config left loose in \$HOME"
   fi
 }
 
-# Artefatos regeneráveis instalados pelas configs anteriores: plugins do
-# lazy.nvim, binários do mason, TPM, caches e o dump de completions do zsh.
-# Tudo isso volta sozinho no primeiro boot da config nova.
+# Regenerable artifacts installed by previous configs: lazy.nvim plugins,
+# mason binaries, TPM, caches, and the zsh completion dump.
+# All of it comes back on its own on the new config's first boot.
 clean_residuals() {
   local candidates=(
     "$HOME/.local/share/nvim"
@@ -175,31 +176,32 @@ clean_residuals() {
   done
 
   if [ ${#targets[@]} -eq 0 ]; then
-    skip "nada a limpar"
+    skip "nothing to clean"
     return
   fi
 
-  printf '    %s\n' "${DIM}serão REMOVIDOS (regeneráveis no próximo boot):${RESET}"
+  printf '    %s\n' "${DIM}will be REMOVED (regenerable on next boot):${RESET}"
   for path in "${targets[@]}"; do
     printf '      %s %s\n' "${RED}×${RESET}" "$(short "$path") ($(du -sh "$path" 2>/dev/null | cut -f1))"
   done
 
-  if confirm "Remover esses ${#targets[@]} itens?"; then
+  if confirm "Remove these ${#targets[@]} items?"; then
     for path in "${targets[@]}"; do
       run rm -rf "$path"
-      ok "removido $(short "$path")"
+      ok "removed $(short "$path")"
     done
   else
-    warn "limpeza pulada — os resíduos continuam no lugar"
+    warn "cleanup skipped — the residuals are still there"
   fi
 }
 
-# tmux lê a config só quando o servidor sobe. Como o zsh/tmux.sh usa
-# `new-session -A`, terminal novo apenas anexa no servidor velho e as opções
-# antigas continuam valendo — daí a config parecer que "não foi substituída".
+# tmux only reads its config when the server starts. Since zsh/tmux.sh uses
+# `new-session -A`, a new terminal just attaches to the old server and the
+# old options are still in effect — which is why the config can look like it
+# "wasn't replaced".
 reload_tmux() {
   if ! command -v tmux >/dev/null 2>&1; then
-    skip "tmux não instalado"
+    skip "tmux not installed"
     return
   fi
 
@@ -208,22 +210,22 @@ reload_tmux() {
   major="${version%%.*}"
   minor="${version#*.}"
   minor="${minor//[!0-9]/}"
-  # Só a partir da 3.1 o tmux procura em $XDG_CONFIG_HOME/tmux/tmux.conf;
-  # antes disso o único caminho lido é ~/.tmux.conf.
+  # Only from 3.1 onward does tmux look at $XDG_CONFIG_HOME/tmux/tmux.conf;
+  # before that the only path it reads is ~/.tmux.conf.
   if [ "$major" -lt 3 ] || { [ "$major" -eq 3 ] && [ "${minor:-0}" -lt 1 ]; }; then
-    warn "tmux $version não lê ~/.config/tmux — linkando ~/.tmux.conf também"
+    warn "tmux $version doesn't read ~/.config/tmux — linking ~/.tmux.conf too"
     install_item tmux-config/tmux/tmux.conf "$HOME/.tmux.conf"
   fi
 
   if ! tmux list-sessions >/dev/null 2>&1; then
-    skip "nenhum servidor rodando — a config nova vale no próximo tmux"
+    skip "no server running — the new config applies on next tmux"
     return
   fi
 
   run tmux source-file "$CONFIG_HOME/tmux/tmux.conf"
-  ok "config recarregada nas sessões abertas"
-  warn "opção que a config antiga setou e a nova não redefine continua ativa;"
-  warn "para estado 100% limpo: tmux kill-server (fecha todas as sessões)"
+  ok "config reloaded in open sessions"
+  warn "an option the old config set that the new one doesn't redefine is still active;"
+  warn "for a fully clean state: tmux kill-server (closes all sessions)"
 }
 
 install_fonts() {
@@ -237,12 +239,12 @@ install_fonts() {
   run mkdir -p "$font_dir"
   local font
   for font in "$DOTFILES"/install/fonts/*.ttf; do
-    [ -e "$font" ] || { warn "nenhuma fonte em install/fonts/"; return; }
+    [ -e "$font" ] || { warn "no fonts in install/fonts/"; return; }
     local dst="$font_dir/$(basename "$font")"
     if [ -f "$dst" ] && cmp -s "$font" "$dst"; then
-      skip "$(basename "$font") já instalada"
+      skip "$(basename "$font") already installed"
     else
-      # Fonte é sempre copiada — gerenciador de fontes não segue symlink direito.
+      # Font is always copied — font managers don't follow symlinks well.
       run cp "$font" "$dst"
       ok "$(basename "$font") → $(short "$font_dir")"
     fi
@@ -256,24 +258,24 @@ check_deps() {
   done
 
   if [ ${#missing[@]} -gt 0 ]; then
-    warn "faltando: ${missing[*]}"
-    warn "instale com: brew install ${missing[*]}"
+    warn "missing: ${missing[*]}"
+    warn "install with: brew install ${missing[*]}"
   else
-    ok "todas as dependências presentes"
+    ok "all dependencies present"
   fi
 
   if [ ! -d "$HOME/.oh-my-zsh" ]; then
-    warn "oh-my-zsh não encontrado em ~/.oh-my-zsh — zsh/oh-my-zsh.sh vai falhar"
-    warn 'instale com: sh -c "$(curl -fsSL https://install.ohmyz.sh)"'
+    warn "oh-my-zsh not found at ~/.oh-my-zsh — zsh/oh-my-zsh.sh will fail"
+    warn 'install with: sh -c "$(curl -fsSL https://install.ohmyz.sh)"'
   fi
 }
 
 printf '\n%sDotfiles%s  %s\n' "$BOLD" "$RESET" "$(short "$DOTFILES")"
 dry_note=""
 if $DRY_RUN; then
-  dry_note=" | dry-run (nada será alterado)"
+  dry_note=" | dry-run (nothing will be changed)"
 fi
-printf 'modo: %s%s%s | config: %s%s\n' \
+printf 'mode: %s%s%s | config: %s%s\n' \
   "$BOLD" "$MODE" "$RESET" "$(short "$CONFIG_HOME")" "$dry_note"
 
 info "Configs"
@@ -283,44 +285,44 @@ install_item zsh                    "$CONFIG_HOME/zsh"
 install_item terminal/starship.toml "$CONFIG_HOME/starship.toml"
 
 info "Shell"
-# ~/.zshrc é só o entrypoint: define XDG_CONFIG_HOME e dá source no
-# ~/.config/zsh/init.sh, que carrega o resto do zsh/.
+# ~/.zshrc is just the entrypoint: it sets XDG_CONFIG_HOME and sources
+# ~/.config/zsh/init.sh, which loads the rest of zsh/.
 install_item zsh/zshrc "$HOME/.zshrc"
 
-info "Configs legadas"
+info "Legacy configs"
 stash_legacy_configs
 
 info "tmux"
 reload_tmux
 
 if $WITH_CLEAN; then
-  info "Limpeza de resíduos"
+  info "Residual cleanup"
   clean_residuals
 fi
 
 if $WITH_FONTS; then
-  info "Fontes"
+  info "Fonts"
   install_fonts
 fi
 
-info "Dependências"
+info "Dependencies"
 check_deps
 
-printf '\n%sPronto.%s\n' "$GREEN$BOLD" "$RESET"
+printf '\n%sDone.%s\n' "$GREEN$BOLD" "$RESET"
 if $DRY_RUN; then
-  printf 'Isso foi um dry-run. Rode sem --dry-run pra aplicar.\n\n'
+  printf 'This was a dry-run. Run without --dry-run to apply.\n\n'
 else
   if [ -d "$OLD_DIR" ]; then
-    printf 'Configs anteriores guardadas em %s (sufixo -old).\n' "$(short "$OLD_DIR")"
+    printf 'Previous configs saved at %s (-old suffix).\n' "$(short "$OLD_DIR")"
   fi
   cat <<'NEXT'
 
-Próximos passos:
-  1. exec zsh                       — recarrega o shell
-  2. nvim +checkhealth              — LazyVim reinstala os plugins no 1º boot
+Next steps:
+  1. exec zsh                       — reload the shell
+  2. nvim +checkhealth              — LazyVim reinstalls plugins on first boot
   3. iTerm2 → Settings → Profiles → Other Actions ▾ → Import JSON Profiles...
-     e escolha terminal/tokyo-compact-profile.json
-  4. Selecione "JetBrainsMono Nerd Font" no perfil do iTerm2
+     and pick terminal/tokyo-compact-profile.json
+  4. Select "JetBrainsMono Nerd Font" in the iTerm2 profile
 
 NEXT
 fi
