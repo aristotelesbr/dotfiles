@@ -5,17 +5,12 @@ return {
     "neovim/nvim-lspconfig",
     opts = {
       servers = {
-        tsserver = {},
+        ts_ls = {},
         ruby_lsp = {},
         rubocop = {},
         standardrb = {},
       },
       setup = {
-        tsserver = function(_, opts)
-          require("typescript").setup({ server = opts })
-          return true
-        end,
-
         -- Ruby IDE features
         ruby_lsp = function(_, opts)
           require("lspconfig").ruby_lsp.setup(opts)
