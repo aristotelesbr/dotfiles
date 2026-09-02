@@ -157,6 +157,7 @@
   "Guid": "5A8BFC9D-5C92-472A-9B1E-E2FF32E9B388",
   "Horizontal Spacing": 1.0,
   "Minimum Contrast": 0.5,
+  "Mouse Reporting": true,
   "Name": "Tokyo Compact",
   "Non-ASCII Anti Aliased": true,
   "Non-ASCII Ligatures": false,
@@ -176,6 +177,7 @@
     "Green Component": 0.1803921568627451,
     "Red Component": 0.1607843137254902
   },
+  "Show Mark Indicators": false,
   "Silence Bell": true,
   "Terminal Type": "xterm-256color",
   "Thin Strokes": 3,
