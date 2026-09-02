@@ -1,40 +1,33 @@
 # Aliases for commonly used commands
 
-# reload .zshrc
-alias reload="source ~/.zshrc"
+# Re-exec instead of re-sourcing: sourcing ~/.zshrc de novo roda compinit e o
+# oh-my-zsh uma segunda vez em cima do estado atual.
+alias reload="exec zsh"
 
-# Easier navigation: .., ..., ~ and -Aliases
+# Easier navigation
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
+
+# Listing. lsd é opcional (brew install lsd) — sem esse fallback, numa máquina
+# recém-instalada `l` fica quebrado até alguém lembrar de instalar.
+if command -v lsd >/dev/null 2>&1; then
+  alias l="lsd -l"
+  alias la="lsd -la"
+else
+  alias l="ls -lh"
+  alias la="ls -lah"
+fi
 
 # Shortcuts
 alias h="history"
 alias j="jobs"
 alias c="clear"
-alias l="lsd"
-alias la="ls -la"
 
-# List all files colorized in long format
-alias tail='colortail'
-
-# Git
-alias g="git"
+# Git. O plugin git do oh-my-zsh já define g, ga, gb, gd e gc (esse último com
+# --verbose, que é melhor), então só fica aqui o que ele não cobre com esse nome.
+# Atenção: `gs` sombreia o binário do ghostscript — use `command gs` pra ele.
 alias gs="git status"
-alias ga="git add"
-alias gb="git branch"
-alias gc="git commit"
-alias gd="git diff"
-
-# Docker
-alias d="docker"
-alias dc="docker-compose"
-alias dcd="docker-compose down"
-alias dcr="docker-compose run"
-alias dce="docker-compose exec"
-alias dcb="docker-compose build"
-alias dcl="docker-compose logs"
-alias dcp="docker-compose ps"
 
 # Create a new file and edit it
 function mkf() {
