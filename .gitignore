@@ -1,11 +1,4 @@
-tt.*
-.tests
-doc/tags
-debug
-.repro
-foo.*
 *.log
-data
 zsh/secrets.sh
 **/.DS_Store
 node_modules
