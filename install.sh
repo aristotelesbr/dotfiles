@@ -194,6 +194,38 @@ clean_residuals() {
   fi
 }
 
+# tmux lê a config só quando o servidor sobe. Como o zsh/tmux.sh usa
+# `new-session -A`, terminal novo apenas anexa no servidor velho e as opções
+# antigas continuam valendo — daí a config parecer que "não foi substituída".
+reload_tmux() {
+  if ! command -v tmux >/dev/null 2>&1; then
+    skip "tmux não instalado"
+    return
+  fi
+
+  local version major minor
+  version="$(tmux -V | sed 's/^tmux //')"
+  major="${version%%.*}"
+  minor="${version#*.}"
+  minor="${minor//[!0-9]/}"
+  # Só a partir da 3.1 o tmux procura em $XDG_CONFIG_HOME/tmux/tmux.conf;
+  # antes disso o único caminho lido é ~/.tmux.conf.
+  if [ "$major" -lt 3 ] || { [ "$major" -eq 3 ] && [ "${minor:-0}" -lt 1 ]; }; then
+    warn "tmux $version não lê ~/.config/tmux — linkando ~/.tmux.conf também"
+    install_item tmux-config/tmux/tmux.conf "$HOME/.tmux.conf"
+  fi
+
+  if ! tmux list-sessions >/dev/null 2>&1; then
+    skip "nenhum servidor rodando — a config nova vale no próximo tmux"
+    return
+  fi
+
+  run tmux source-file "$CONFIG_HOME/tmux/tmux.conf"
+  ok "config recarregada nas sessões abertas"
+  warn "opção que a config antiga setou e a nova não redefine continua ativa;"
+  warn "para estado 100% limpo: tmux kill-server (fecha todas as sessões)"
+}
+
 install_fonts() {
   local font_dir
   if [ "$(uname -s)" = "Darwin" ]; then
@@ -257,6 +289,9 @@ install_item zsh/zshrc "$HOME/.zshrc"
 
 info "Configs legadas"
 stash_legacy_configs
+
+info "tmux"
+reload_tmux
 
 if $WITH_CLEAN; then
   info "Limpeza de resíduos"
