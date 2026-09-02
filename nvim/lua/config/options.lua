@@ -38,6 +38,7 @@ local options = {
   scrolloff = 8,
   sidescrolloff = 8,
   guifont = "JetBrainsMono Nerd Font:h16",
+  winborder = "single",
   whichwrap = "bs<>[]hl",
   colorcolumn = "80",
   list = true,
