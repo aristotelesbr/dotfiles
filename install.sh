@@ -63,6 +63,17 @@ while [ $# -gt 0 ]; do
   shift
 done
 
+# Everything installed here is per-user: destinations are derived from $HOME,
+# and the defaults(1) writes land in the calling user's domain. Under sudo the
+# macOS prefs go to root's domain instead of yours, and every symlink created
+# in your home ends up root-owned. Nothing in this installer needs privileges.
+if [ "$(id -u)" -eq 0 ]; then
+  if [ -n "${SUDO_USER:-}" ]; then
+    die "don't run this under sudo — run it as $SUDO_USER: ./install.sh"
+  fi
+  die "don't run this as root — run it as the user being set up"
+fi
+
 # Path with $HOME shortened to ~, just to keep the output readable.
 short() { local tilde='~'; printf '%s' "${1/#$HOME/$tilde}"; }
 
