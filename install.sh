@@ -329,6 +329,8 @@ install_item nvim                   "$CONFIG_HOME/nvim"
 install_item tmux-config/tmux       "$CONFIG_HOME/tmux"
 install_item zsh                    "$CONFIG_HOME/zsh"
 install_item terminal/starship.toml "$CONFIG_HOME/starship.toml"
+# Só o config.toml: ~/.config/herdr/ também guarda socket, logs e session.json.
+install_item herdr/config.toml      "$CONFIG_HOME/herdr/config.toml"
 
 info "Shell"
 # ~/.zshrc is just the entrypoint: it sets XDG_CONFIG_HOME and sources

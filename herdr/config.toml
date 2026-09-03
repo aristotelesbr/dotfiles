@@ -1,0 +1,16 @@
+# Atalhos espelhando o tmux (ver ~/.config/tmux/tmux.reset.conf)
+[keys]
+prefix = "ctrl+a"
+
+# Navegação entre panes no estilo vi
+focus_pane_left  = "prefix+h"
+focus_pane_down  = "prefix+j"
+focus_pane_up    = "prefix+k"
+focus_pane_right = "prefix+l"
+
+# Splits: | lado a lado, - empilhado
+split_vertical   = "prefix+shift+backslash"
+split_horizontal = "prefix+minus"
+
+close_pane = "prefix+x"
+new_tab    = "prefix+c"
