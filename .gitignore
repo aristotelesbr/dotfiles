@@ -3,3 +3,4 @@ zsh/secrets.sh
 **/.DS_Store
 node_modules
 *.pak
+nvim/lazy-lock.json
