@@ -291,10 +291,20 @@ configure_macos() {
   # System-wide flat look, matching blur.enabled = false everywhere else in
   # this setup: menu bar, Dock, and Finder sidebars stop using the frosted-
   # glass vibrancy effect.
-  run defaults write com.apple.universalaccess reduceTransparency -bool true
-  run killall SystemUIServer 2>/dev/null || true
-  run killall Dock 2>/dev/null || true
-  ok "system transparency (blur) disabled"
+  #
+  # This domain is TCC-protected: the write only lands if the terminal running
+  # the install has Full Disk Access. It's a cosmetic setting, so a refusal
+  # warns and moves on rather than aborting the whole install under set -e.
+  # Re-running under sudo doesn't help — that writes root's domain, not yours.
+  if run defaults write com.apple.universalaccess reduceTransparency -bool true 2>/dev/null; then
+    run killall SystemUIServer 2>/dev/null || true
+    run killall Dock 2>/dev/null || true
+    ok "system transparency (blur) disabled"
+  else
+    warn "can't write com.apple.universalaccess — needs Full Disk Access"
+    warn "grant it to your terminal in System Settings > Privacy & Security > Full Disk Access,"
+    warn "or tick System Settings > Accessibility > Display > Reduce transparency by hand"
+  fi
 }
 
 check_deps() {
