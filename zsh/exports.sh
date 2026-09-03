@@ -11,18 +11,16 @@ export HISTCONTROL=ignoreboth:erasedups
 export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help"
 export SAVEHIST=1000000000
 
-test-env() {
-  export HELLO=hello-there
-}
-
 export GPG_TTY=$(tty)
 
-eval "$(echo $HELLO)"
-# ASDF
-export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
+# ASDF PATH
+eval "$(mise activate zsh)"
 
 # EXTRA
 export PGGSSENCMODE="disable"
 
 export PATH="$HOMEBREW_PREFIX/opt/coreutils/libexec/gnubin:$PATH"
-# source $HOME/.secrets.sh
+
+# Per-machine secrets (GPG_KEY_PERSONAL, tokens, etc.) — gitignored, not
+# present on a fresh clone.
+[ -f "$XDG_CONFIG_HOME/zsh/secrets.sh" ] && source "$XDG_CONFIG_HOME/zsh/secrets.sh"
