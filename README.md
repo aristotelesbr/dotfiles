@@ -31,6 +31,7 @@ mason, TPM, caches) after confirming. `./install.sh --help` lists the flags
 | --- | --- |
 | `nvim/` | `~/.config/nvim` |
 | `tmux-config/tmux/` | `~/.config/tmux` |
+| `herdr/config.toml` | `~/.config/herdr/config.toml` |
 | `zsh/` | `~/.config/zsh` |
 | `zsh/zshrc` | `~/.zshrc` |
 | `terminal/starship.toml` | `~/.config/starship.toml` |
