@@ -1,4 +1,9 @@
 onboarding = false
+
+[theme]
+# Matches nvim (tokyonight-night) and the Tokyo Compact terminal profile
+name = "tokyo-night"
+
 # Keybindings mirroring tmux (see ~/.config/tmux/tmux.reset.conf)
 [keys]
 prefix = "ctrl+a"
